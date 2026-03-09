@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-lectriCity</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon192/192.png" />
+
+  <style>
+    body { 
+    font-family: Arial, sans-serif; 
+    margin: 20px; 
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    text-align: center;
+    }
+    .card { 
+    border: 1px solid #ccc; 
+    padding: 15px; 
+    margin-top: 20px; 
+    border-radius: 8px; 
+    }
+    select, button { 
+    padding: 8px; 
+    margin-top: 10px; 
+    }
+    .app-logo {
+    width: 100px; 
+    height: auto; 
+    }
+
+  </style>
+
+</head>
+<body>
+  <div class="text-center mb-3">
+    <img src="icons/icon512/512.png" class="app-logo" alt="logo" />
+        <h2>E-lectriCity of Iloilo</h2>
+  </div>
+  <p>Please select a district for electricity information in Iloilo City<br>(The information will be shown is not exactly accurate, some schedule might change)</p>
+
+  <select id="locationSelect">
+    <option value="choose">-- Choose Location --</option>
+    <option value="arevalo">Arevalo</option>
+    <option value="city_proper">City Proper</option>
+    <option value="jaro">Jaro</option>
+    <option value="la_paz">La Paz</option>
+    <option value="lapuz">Lapuz</option>
+    <option value="molo">Molo</option>
+    <option value="mandurriao">Mandurriao</option>
+  </select>
+  <button onclick="showSchedule()">Check Info</button>
+
+  <div id="result" class="card"></div>
+
+  <script>
+    // Example dataset (replace with API or database later)
+    const electricityData = {
+      arevalo: { interruption: "March 18, 2026 - 12:00 PM", restoration: "March 18, 2026 - 6:00 PM" },
+      city_proper: { interruption: "March 20, 2026 - 8:00 AM", restoration: "March 20, 2026 - 12:00 PM" },
+      jaro:   { interruption: "March 21, 2026 - 12:00 AM", restoration: "March 21, 2026 - 3:00 AM" },
+      la_paz: { interruption: "March 21, 2026 - 9:00 PM", restoration: "March 22, 2026 - 12:00 AM" },
+      lapuz: { interruption: "March 25, 2026 - 1:00 PM", restoration: "March 25, 2026 - 9:00 PM" },
+      molo: { interruption: "March 30, 2026 - 7:00 AM", restoration: "March 30, 2026 - 8:30 AM" },
+      mandurriao: { interruption: "March 19, 2026 - 3:00 AM", restoration: "March 19, 2026 - 6:00 AM" },
+    };
+
+    function showSchedule() {
+      const location = document.getElementById("locationSelect").value;
+      const resultDiv = document.getElementById("result");
+
+      if (!location) {
+        resultDiv.innerHTML = "<p style='color:red;'>Please select a location.</p>";
+        return;
+      }
+
+      const schedule = electricityData[location];
+      resultDiv.innerHTML = `
+        <h3>📍 ${location.toUpperCase()}</h3>
+        <p><strong>Interruption:</strong> ${schedule.interruption}</p>
+        <p><strong>Restoration:</strong> ${schedule.restoration}</p>
+      `;
+    }
+
+    // Register service worker for PWA
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("service-worker.js")
+        .then(() => console.log("Service Worker Registered"))
+        .catch(err => console.error("SW registration failed:", err));
+    }
+  </script>
+</body>
+</html>
