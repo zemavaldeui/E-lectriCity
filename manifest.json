@@ -1,12 +1,10 @@
 {
-  "name": "E-lectriCity",
-  "short_name": "E-lectriCity",
-  "description": "A Progressive Web App that shows electricity interruption and restoration schedules for Iloilo City districts.",
+  "name": "E-LectriCity",
+  "short_name": "E-LectriCity",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "theme_color": "#28a745",
-  "orientation": "portrait",
+  "theme_color": "#556b2f",
   "icons": [
     {
       "src": "192.png",

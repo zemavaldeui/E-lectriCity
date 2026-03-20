@@ -1,8 +1,7 @@
-self.addEventListener("install", event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.addAll(urlsToCache);
+self.addEventListener("install", function(e) {
+  e.waitUntil(
+    caches.open("Electricity-cache").then(function(cache) {
+      return cache.addAll(["index.html"]);
     })
   );
 });
-
